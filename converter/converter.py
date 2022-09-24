@@ -1,4 +1,4 @@
-class UnitConverter():
+class UnitConverterTools():
     def __init__(self):
 
         self.quantities = [
@@ -13,8 +13,15 @@ class UnitConverter():
 
     def __init_quantity_units(self):
 
-        self.length_units = list(self.length_in_meters.keys())
-        self.area_units = list(self.area_in_sqm.keys())
+        self.quantity_units = { } 
+
+        for quantity in self.quantities:
+
+            self.quantity_units[quantity] = list(
+                self.factors[quantity].keys()
+            )
+        
+        print(self.quantity_units)
 
     def __init_conversion_factors(self):
 
@@ -189,6 +196,12 @@ class UnitConverter():
             "pebibyte" : 1.1102e-16
         }
 
+        self.temperature_in_void = {
+            "celcius" : None, 
+            "fahrenheit" : None,
+            "kelvin" : None,
+        }
+
         #-------------------------------------------------------------
         self.factors = {
             "length" : self.length_in_meters,
@@ -203,7 +216,8 @@ class UnitConverter():
             "plane_angle" : self.plane_angle_in_degree,
             "fuel_economy" : self.fuel_economy_in_mipga,
             "data_transfer_rate" : self.data_transfer_rate_in_bitps,
-            "digital_storage" : self.digital_storage_in_bit
+            "digital_storage" : self.digital_storage_in_bit,
+            "temperature" : self.temperature_in_void
         }
 
     def _convert(self, quantity:str, value: float|int, _from: str, _to: str) -> float | int:
@@ -239,6 +253,8 @@ class UnitConverter():
         elif ((_from == "fahrenheit") and (_to == "kelvin")): 
             _to_final = self._convert_temperature(value, _from="fahrenheit", _to="celsius") + 273.15
             return _to_final
+        elif (_from == _to):
+            return value
         else:
             raise ValueError(
                 f"Temperature unit not recognized"
@@ -248,6 +264,6 @@ class UnitConverter():
 
 
 if __name__ == "__main__":
-    unit = UnitConverter()
-    final = unit._convert("length", 55, _from="nanometer", _to="micrometer")
+    unit = UnitConverterTools()
+    final = unit._convert("speed", 12.69, _from="mach", _to="kilometer_per_hour")
     print(final)
