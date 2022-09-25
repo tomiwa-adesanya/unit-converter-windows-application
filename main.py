@@ -15,7 +15,7 @@ class UnitConverter(tk.Tk):
         #-----------CONFIGURING ROOT WINDOW-----------------------
         #---------------------------------------------------------
         self.title("Unit Converter")
-        self.geometry("600x350")
+        self.geometry("600x275")
         self.resizable(False, False)
         self.columnconfigure(index=0, weight=2)
         self.columnconfigure(index=1, weight=1)
@@ -41,6 +41,7 @@ class UnitConverter(tk.Tk):
     
     def __build(self) -> None:
 
+        Button = ttk.Button
         Combobox = ttk.Combobox
         Entry = ttk.Entry
         Frame = ttk.Frame
@@ -92,6 +93,12 @@ class UnitConverter(tk.Tk):
         # COMBOBOX
         self._to_combobox = Combobox(frame_2, textvariable=self._to_combobox_var, state="readonly", font=("Helvetica"))
         self._to_combobox.pack(fill="x", ipady=7.5)
+
+        #-----------------------------------------------------------
+        #------------------CLEAR BUTTON-----------------------------
+        #-----------------------------------------------------------
+        clear_button = Button(self, text="clear", command=self.__clear_button_action)
+        clear_button.grid(column=2, row=3, ipadx=15, ipady=10, sticky="ne", pady=25)
 
     def __bind_events(self) -> None:
 
@@ -174,6 +181,13 @@ class UnitConverter(tk.Tk):
         """
         if (self.focus_get() == self._to_entry):
             self.__convert_to_to__from()
+
+    def __clear_button_action(self):
+        self._to_combobox_var.set("")
+        self._from_combobox_var.set("")
+        self._from_entry_var.set("")
+        self._to_entry_var.set("")
+        self.quantity_combobox_var.set("")
 
     def __format_unit(self, unit: str) -> str:
         unit = unit.lower()
