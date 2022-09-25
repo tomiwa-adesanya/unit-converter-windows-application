@@ -1,6 +1,14 @@
 class UnitConverterTools():
+    """
+    Python class with attributes and methods to convert a unit _from a specified
+    physical quantity _to another unit of the same physical quantity.
+    Attributes: 
+        * quantities: list -> list of physical quantities instance can work with.
+        * quantity_units: dict[str, list] ->  a dictionary of physical quanties as keys and a list of units of the physical quantities as values.
+        * factors: dict[str, dict[str, int]] -> a dictionary of physical quantities as keys, and another dictionary(with unit as keys and float conversion factors as values)
+    """
     def __init__(self):
-
+        
         self.quantities = [
             "length", "area", "volume", "mass", "time", "temperature",
             "energy", "frequency", "pressure", "speed", "plane_angle",
@@ -11,8 +19,11 @@ class UnitConverterTools():
         self.__init_conversion_factors()
         self.__init_quantity_units()
 
-    def __init_quantity_units(self):
-
+    def __init_quantity_units(self) -> None:
+        """
+        Creates a new attribute of `quantity_unit`, a dictionary with physical quantities as keys(str) and list of units that belongs
+        to the physical quantity as values.
+        """
         self.quantity_units = { } 
 
         for quantity in self.quantities:
@@ -20,11 +31,13 @@ class UnitConverterTools():
             self.quantity_units[quantity] = list(
                 self.factors[quantity].keys()
             )
-        
-        print(self.quantity_units)
 
-    def __init_conversion_factors(self):
-
+    def __init_conversion_factors(self) -> None:
+        """
+        Creates new attributes of form quantity_in_*, which is a dict[str, float] that holds conversion factors for certain units of the quantity.
+        Note that the conversion factors are with respect to a pre-chosen universal unit of the quantity. The universal unit allows flexibility
+        of conversion between other units of the same physical quantity.
+        """
         self.length_in_meters = { # With respect to meter as the standard
             "meter" : 1,
             "kilometer" : 0.001, 
@@ -221,6 +234,10 @@ class UnitConverterTools():
         }
 
     def _convert(self, quantity:str, value: float|int, _from: str, _to: str) -> float | int:
+        """
+        Converts `value` in a unit specified in the `_from` argument to a different unit specified in the `_to` argument, of a 
+        specific physical quantity specified in the `quantity` argument. 
+        """
 
         if (quantity == "temperature"):
             return self._convert_temperature(
@@ -240,6 +257,9 @@ class UnitConverterTools():
             )
     
     def _convert_temperature(self, value: float|int, _from: str, _to: str) -> float | int:
+        """
+        Handles all conversion involving temperature units.
+        """
         
         if ((_from == "celsius") and (_to == "fahrenheit")):
             _to_final = (value * 9/5) + 32
@@ -259,11 +279,3 @@ class UnitConverterTools():
             raise ValueError(
                 f"Temperature unit not recognized"
             )
-
-
-
-
-if __name__ == "__main__":
-    unit = UnitConverterTools()
-    final = unit._convert("speed", 12.69, _from="mach", _to="kilometer_per_hour")
-    print(final)
