@@ -210,7 +210,7 @@ class UnitConverterTools():
         }
 
         self.temperature_in_void = {
-            "celcius" : None, 
+            "celsius" : None, 
             "fahrenheit" : None,
             "kelvin" : None,
         }
