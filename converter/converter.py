@@ -235,8 +235,8 @@ class UnitConverterTools():
 
     def _convert(self, quantity:str, value: float|int, _from: str, _to: str) -> float | int:
         """
-        Converts `value` in a unit specified in the `_from` argument to a different unit specified in the `_to` argument, of a 
-        specific physical quantity specified in the `quantity` argument. 
+        Converts `value` in a unit specified by the `_from` argument to a different unit specified by the `_to` argument, of a 
+        specific physical quantity specified by the `quantity` argument. 
         """
 
         if (quantity == "temperature"):
