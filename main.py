@@ -17,6 +17,7 @@ class UnitConverter(tk.Tk):
         self.title("Unit Converter")
         self.geometry("600x275")
         self.resizable(False, False)
+        self.iconbitmap("data\\img\\icon.ico")
         self.columnconfigure(index=0, weight=2)
         self.columnconfigure(index=1, weight=1)
         self.columnconfigure(index=2, weight=2)
