@@ -3,6 +3,10 @@ from converter.converter import UnitConverterTools
 import tkinter as tk
 
 class UnitConverter(tk.Tk):
+    """
+    Builds GUI with widgets to enable users seamlessly perform conversion from its current unit to specified unit of the same 
+    physical quantity.
+    """
 
     def __init__(self):
         super().__init__()
@@ -35,7 +39,7 @@ class UnitConverter(tk.Tk):
         self.__bind_events()
         self.mainloop()
     
-    def __build(self):
+    def __build(self) -> None:
 
         Combobox = ttk.Combobox
         Entry = ttk.Entry
@@ -62,62 +66,34 @@ class UnitConverter(tk.Tk):
         #----------------------------------------------------------
         #---------------`FROM` SECTION CONFIG----------------------
         #----------------------------------------------------------
-        frame_1 = Frame(
-            self, 
-        )
-        frame_1.grid(
-            column=0, row=1, rowspan=2, sticky="nw"
-        )
+        frame_1 = Frame(self)
+        frame_1.grid(column=0, row=1, rowspan=2, sticky="nw")
         # ENTRY
-        self._from_entry = Entry(
-            frame_1, textvariable=self._from_entry_var, font=("Helvetica", 13)
-        )
-        self._from_entry.pack(
-            fill="x", ipady=7.5, ipadx=52.5
-        )
+        self._from_entry = Entry(frame_1, textvariable=self._from_entry_var, font=("Helvetica", 13))
+        self._from_entry.pack(fill="x", ipady=7.5, ipadx=52.5)
         # COMBOBOX
-        self._from_combobox = Combobox(
-            frame_1, textvariable=self._from_combobox_var, state="readonly", font=("Helvetica")
-        )
-        self._from_combobox.pack(
-            fill="x", ipady=7.5
-        )
+        self._from_combobox = Combobox(frame_1, textvariable=self._from_combobox_var, state="readonly", font=("Helvetica"))
+        self._from_combobox.pack(fill="x", ipady=7.5)
 
         #--------------------------------------------------------
         #--------------`=` label section-------------------------
         #--------------------------------------------------------
-        equals_label = Label(
-            self, text="=", font=("Helvetica", 25)
-        )
-        equals_label.grid(
-            column=1, row=1
-        )
+        equals_label = Label(self, text="=", font=("Helvetica", 25))
+        equals_label.grid(column=1, row=1)
 
         #----------------------------------------------------------
         #-----------------`TO` SECTION CONFIG----------------------
         #----------------------------------------------------------
-        frame_2 = Frame(
-            self, 
-        )
-        frame_2.grid(
-            column=2, row=1, rowspan=2, sticky="ne"
-        )
+        frame_2 = Frame(self)
+        frame_2.grid(column=2, row=1, rowspan=2, sticky="ne")
         # ENTRY
-        self._to_entry = Entry(
-            frame_2, textvariable=self._to_entry_var, font=("Helvetica", 13)
-        )
-        self._to_entry.pack(
-            fill="x", ipady=7.5, ipadx=52.5
-        )
+        self._to_entry = Entry(frame_2, textvariable=self._to_entry_var, font=("Helvetica", 13))
+        self._to_entry.pack(fill="x", ipady=7.5, ipadx=52.5)
         # COMBOBOX
-        self._to_combobox = Combobox(
-            frame_2, textvariable=self._to_combobox_var, state="readonly", font=("Helvetica")
-        )
-        self._to_combobox.pack(
-            fill="x", ipady=7.5
-        )
+        self._to_combobox = Combobox(frame_2, textvariable=self._to_combobox_var, state="readonly", font=("Helvetica"))
+        self._to_combobox.pack(fill="x", ipady=7.5)
 
-    def __bind_events(self):
+    def __bind_events(self) -> None:
 
         # QUANTITY COMBOBOX
         self.quantity_combobox.bind(
@@ -154,9 +130,13 @@ class UnitConverter(tk.Tk):
             "<Control-W>", lambda event=None: self.destroy()
         )
     
-    def __quantity_selected(self):
+    def __quantity_selected(self) -> None:
+        """
+        Callback for physical quantity Combobox selection.
+        It configures _from_combobox and _to_combobox values depending on the value of the selected quantity Combobox value.
+        """
 
-        selected_quantity = self.quantity_combobox_var.get().lower()
+        selected_quantity = self.quantity_combobox_var.get().lower() # The value of selected physical quantity
 
         if (" " in selected_quantity):
             selected_quantity = selected_quantity.replace(" ", "_")
@@ -178,14 +158,20 @@ class UnitConverter(tk.Tk):
         self._from_combobox_var.set(quantity_units[0])
         self._to_combobox_var.set(quantity_units[1])
 
-        self._from_entry_var.set("1")
+        self._from_entry_var.set("1") # Inserts 1 into _from_entry.
         self.__convert_from_to__to()
 
-    def __trace_from_entry_var(self, arg1=None, arg2=None, arg3=None):
+    def __trace_from_entry_var(self, arg1=None, arg2=None, arg3=None) -> None:
+        """
+        Callback function that performs autoconversion as user types in values into _from_entry
+        """
         if (self.focus_get() == self._from_entry):
             self.__convert_from_to__to()
     
-    def __trace_to_entry_var(self, arg1=None, arg2=None, arg3=None):
+    def __trace_to_entry_var(self, arg1=None, arg2=None, arg3=None) -> None:
+        """
+        Callback function that performs autoconversion as user types in values into _from_entry
+        """
         if (self.focus_get() == self._to_entry):
             self.__convert_to_to__from()
 
@@ -215,7 +201,11 @@ class UnitConverter(tk.Tk):
         _to_value = self.__format_value(self._to_entry_var.get())
         return _to_value
 
-    def __convert_from_to__to(self):
+    def __convert_from_to__to(self) -> None:
+        """
+        Converts the numeric value typed in the _from_entry in a unit specified in the _from_combobox to a unit specified 
+        in the _to_combobox, and inserts the results of the converion into the _to_entry.
+        """
         try:
             quantity = self._get_quantity()        
             _from_unit = self._get__from_unit()
@@ -226,7 +216,11 @@ class UnitConverter(tk.Tk):
         except:
             pass
 
-    def __convert_to_to__from(self):
+    def __convert_to_to__from(self) -> None:
+        """
+        Converts the numeric value typed in the _to_entry in a unit specified in the _to_combobox to a unit specified 
+        in the _from_combobox, and inserts the results of the converion into the _from_entry.
+        """
         try:
             quantity = self._get_quantity()
             _to_unit = self._get__to_unit()
@@ -236,15 +230,5 @@ class UnitConverter(tk.Tk):
             self._from_entry_var.set(str(final))
         except:
             pass
-    
-    
-        
-        
-    
-        
 
-    
-
-
-if __name__ == "__main__":
-    UnitConverter()
+UnitConverter()
