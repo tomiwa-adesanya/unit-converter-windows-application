@@ -36,7 +36,7 @@ Clone this repository `git clone https://github.com/tomiwa-adesanya/unit-convert
 ## Installing and running Application
 
 There are two ways you can test/run/use Unit Converter without the requirement of having python set up on your computer. You can run the [standalone](https://github.com/tomiwa-adesanya/unit-converter-windows-application/raw/master/dist/Unit%20Converter.zip)
-directly, or you can install the [setup](https://github.com/tomiwa-adesanya/unit-converter-windows-application/raw/master/dist/Unit-Converter-Setup.exe). The only difference between them is that installing the [setup](https://github.com/tomiwa-adesanya/unit-converter-windows-application/raw/master/dist/Unit-Converter-Setup.exe)
+directly, or you can install the [setup](https://github.com/tomiwa-adesanya/unit-converter-windows-application/raw/master/dist/Unit-Converter-Setup.exe). The  difference between them is that installing the [setup](https://github.com/tomiwa-adesanya/unit-converter-windows-application/raw/master/dist/Unit-Converter-Setup.exe)
 would add Unit Converter to the list of other installed applications in your Windows OS and a start menu shortcut would be created. 
 
 To use the standalone, download the zipped file from [here](https://github.com/tomiwa-adesanya/unit-converter-windows-application/raw/master/dist/Unit%20Converter.zip). Unzip the downloaded zip file into a folder of your choice, search for 
