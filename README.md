@@ -1,4 +1,4 @@
-# Unit Converter - Windows OS Conversion Application
+# Unit Converter - Windows OS Application for unit conversions
 
   ![icon](/data/img/icon.ico)
   
