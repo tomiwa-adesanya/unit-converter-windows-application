@@ -273,6 +273,10 @@ class UnitConverterTools():
         elif ((_from == "fahrenheit") and (_to == "kelvin")): 
             _to_final = self._convert_temperature(value, _from="fahrenheit", _to="celsius") + 273.15
             return _to_final
+        elif ((_from == "kelvin") and (_to == "fahrenheit")):
+            _celsius_value = value - 273.15
+            _to_final = self._convert_temperature(_celsius_value, _from="celsius", _to="fahrenheit")
+            return _to_final
         elif (_from == _to):
             return value
         else:
