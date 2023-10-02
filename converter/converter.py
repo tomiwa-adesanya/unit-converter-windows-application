@@ -265,7 +265,7 @@ class UnitConverterTools():
             _to_final = (value * 9/5) + 32
             return _to_final
         elif ((_from == "fahrenheit") and (_to == "celsius")):
-            _to_final = (value - 32) * 9/5
+            _to_final = (value - 32) * 5/9
             return _to_final
         elif ((_from == "celsius") and (_to == "kelvin")):
             _to_final = value + 273.15
